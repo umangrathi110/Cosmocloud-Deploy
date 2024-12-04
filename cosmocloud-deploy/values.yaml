@@ -1,0 +1,20 @@
+# Default values for cosmocloud-deploy.
+replicaCount: 1
+
+# This sets the container image
+backend:
+  image: shreybatra/sample-backend
+  servicePort: 8000
+
+frontend:
+  image: shreybatra/sample-frontend
+  servicePort: 5173
+  nodePort: 31000
+
+redis:
+  image: redis
+  servicePort: 6379
+
+redisUri: redis://redis-svc:6379
+backendUrl: http://backend-svc:8000
+

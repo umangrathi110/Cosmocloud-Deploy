@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: app-config
 data:
-  BACKEND_URL: {{ .Values.env.backendUrl }}
+  BACKEND_URL: {{ .Values.env.backendUrl | quote }}

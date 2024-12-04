@@ -2,13 +2,11 @@ apiVersion: v1
 kind: Service
 metadata:
   name: frontend-svc
-  namespace: default
 spec:
-  type: NodePort
+  type: {{ .Values.services.frontend.type }}
+  ports:
+  - port: {{ .Values.services.frontend.port }}
+    targetPort: 5173
+    nodePort: {{ .Values.services.frontend.nodePort }}
   selector:
     app: frontend
-  ports:
-    - protocol: TCP
-      port: {{ .Values.frontend.servicePort }}
-      targetPort: {{ .Values.frontend.servicePort }}
-      nodePort: {{ .Values.frontend.nodePort }}

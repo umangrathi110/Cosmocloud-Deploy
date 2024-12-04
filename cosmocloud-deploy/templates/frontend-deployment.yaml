@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend
-  namespace: default
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -14,13 +13,13 @@ spec:
         app: frontend
     spec:
       containers:
-        - name: frontend
-          image: {{ .Values.frontend.image }}
-          ports:
-            - containerPort: {{ .Values.frontend.servicePort }}
-          env:
-            - name: BACKEND_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: app-config
-                  key: BACKEND_URL
+      - name: frontend
+        image: {{ .Values.images.frontend }}
+        ports:
+        - containerPort: 5173
+        env:
+        - name: BACKEND_URL
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: BACKEND_URL

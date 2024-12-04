@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend
-  namespace: default
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -14,14 +13,13 @@ spec:
         app: backend
     spec:
       containers:
-        - name: backend
-          image: {{ .Values.backend.image }}
-          ports:
-            - containerPort: {{ .Values.backend.servicePort }}
-          env:
-            - name: REDIS_URI
-              valueFrom:
-                secretKeyRef:
-                  name: app-secrets
-                  key: REDIS_URI
-
+      - name: backend
+        image: {{ .Values.images.backend }}
+        ports:
+        - containerPort: 8000
+        env:
+        - name: REDIS_URI
+          valueFrom:
+            secretKeyRef:
+              name: redis-secret
+              key: REDIS_URI
